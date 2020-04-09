@@ -4,16 +4,16 @@
 
 ### 启动 - 下载依赖
 >```
-npm install
-```
+>npm install
+>```
 
 ### 运行
 
 - 命令行运行
 
 >```
-npm run serve
-```
+>npm run serve
+>```
 
 - HbuilderX 运行
 
