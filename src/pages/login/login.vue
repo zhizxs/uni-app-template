@@ -30,7 +30,7 @@
 </template>
 
 <script>
-	import service from '../../service.js';
+	import service from '../../common/service/service.js';
 	import {
 		mapState,
 		mapMutations

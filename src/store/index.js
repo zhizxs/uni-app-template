@@ -10,17 +10,78 @@ const store = new Vuex.Store({
 		 */
 		forcedLogin: false,
 		hasLogin: false,
-		userName: ""
+		userName: "",
+		hasLogin: false, // 是否登录
+		openid: null,
+		userInfo: null, // 用户的信息
 	},
 	mutations: {
-		login(state, userName) {
-			state.userName = userName || '新用户';
+		login(state) {
 			state.hasLogin = true;
 		},
 		logout(state) {
-			state.userName = "";
-			state.hasLogin = false;
-		}
+			state.hasLogin = false
+			state.openid = null
+		},
+		setOpenid(state, openid) {
+			state.openid = openid
+		},
+		setUserInfo(state, userInfo) {
+			state.userInfo = userInfo
+		},
+	},
+	actions: {
+		userLogin({
+			commit,
+			state
+		}) { // 登录获取openId
+			const {
+				provider
+			} = state
+			return new Promise((res, rej) => {
+				if (!provider) {
+					rej()
+					return
+				}
+				uni.login({
+					provider,
+					success(data) {
+						if (data.errMsg == 'login:ok') {
+							const openid = data.code
+							commit('login')
+							commit('setOpenid', openid)
+							res(openid)
+						}
+					},
+					fail: (err) => {
+						console.log('uni.login 接口调用失败，将无法正常使用开放接口等服务', err)
+						rej(err)
+					}
+				})
+			})
+		},
+		getUserInfo({ // 获取用户的信息
+			state,
+			commit
+		}) {
+			return new Promise((res, rej) => {
+				const {
+					provider
+				} = state
+				if (state.userInfo === null) {
+					uni.getUserInfo({
+						provider,
+						success(userInfo) {
+							commit('setUserInfo', userInfo)
+						}
+					});
+				} else {
+					res(state.userInfo)
+				}
+
+			})
+
+		},
 	}
 })
 
