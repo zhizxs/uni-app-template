@@ -1,13 +1,19 @@
 <script>
 	export default {
-		onLaunch: function() {
+		globalData:{
+			text: 'text'  
+		},
+		onLaunch() {
 			console.log('App Launch');
 		},
-		onShow: function() {
+		onShow() {
 			console.log('App Show');
 		},
-		onHide: function() {
+		onHide() {
 			console.log('App Hide');
+		},
+		onError(){
+			console.log('App error');
 		}
 	}
 </script>
@@ -22,6 +28,10 @@
 		min-height: 100%;
 		display: flex;
 		font-size: 16px;
+		
+	}
+	page::-webkit-scrollbar {
+		display: none;
 	}
 
 	/* #ifdef MP-BAIDU */
@@ -49,6 +59,7 @@
 	/* #ifdef MP-ALIPAY */
 	page {
 		min-height: 100vh;
+		
 	}
 
 	/* #endif */
@@ -67,6 +78,7 @@
 		flex-direction: column;
 		background-color: #efeff4;
 		padding: 10px;
+		
 	}
 
 	.input-group {

@@ -1,21 +1,11 @@
 <template>
 	<view class="content">
-		<view v-if="hasLogin" class="hello">
-			<view class="title">
-				您好 {{userName}}，您已成功登录。
-			</view>
-			<view class="ul">
-				<view>这是 uni-app 带登录模板的示例App首页。</view>
-				<view>在 “我的” 中点击 “退出” 可以 “注销当前账户”</view>
-			</view>
-		</view>
-		<view v-if="!hasLogin" class="hello">
-			<view class="title">
-				您好 游客。
-			</view>
-			<view class="ul">
-				<view>这是 uni-app 带登录模板的示例App首页。</view>
-				<view>在 “我的” 中点击 “登录” 可以 “登录您的账户”</view>
+		<!-- 直播列表 -->
+		<view class="item"  v-for="(item,index) in list" :key="index" @tap='jumpUrl(item)'>
+			<img :src="item.img" alt="">
+			<view class="info">
+				<text>{{item.des+"-"+item.name}}</text>
+				<text>999</text>
 			</view>
 		</view>
 	</view>
@@ -28,6 +18,74 @@
 
 	export default {
 		computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
+		data(){
+			return {
+				list:[{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'1',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				},{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'2',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				},{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'3',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				},{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'4',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				},{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'5',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				},{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'6',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				},{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'7',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				},{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'8',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				},{
+					img:require('@img/pos.jpg'),
+					icon:require('@img/icon.png'),
+					des:'这是一个直播',
+					id:'9',
+					name:'狂徒张三',
+					url:'rtmp://live.dejiplaza.com/live/test1?txSecret=459aca2d67a41ae4ad6b811139603df1&txTime=5EBBA5F6'
+				}]
+			}
+		},
 		onLoad() {
 			if (!this.hasLogin) {
 				uni.showModal({
@@ -55,29 +113,46 @@
 					}
 				});
 			}
+		},
+		methods:{
+			jumpUrl(item) {
+				uni.navigateTo({
+					url: '../show/show?id='+item.id+"&url="+item.url,
+				});
+			},
 		}
 	}
 </script>
 
-<style>
-	.hello {
+<style lang="scss" scoped>
+	.content{
 		display: flex;
-		flex: 1;
-		flex-direction: column;
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: space-around;
+		&:after {
+		  content: "";
+		  width: 45%;
+		}
+	}
+	.item{
+		width: 45%;
+		flex-grow: 0;
+		display: inline-block;
+		position: relative;
+		margin-top: 35rpx;
+		img{
+			width: 100%;
+			height: 100%;
+			border-radius: 10rpx;
+		}
+	}
+	.info{
+		position: absolute;
+		z-index: 9;
+		bottom: 10rpx;
+		color: #fff;
+		font-size: 14rpx;
 	}
 
-	.title {
-		color: #8f8f94;
-		margin-top: 25px;
-	}
-
-	.ul {
-		font-size: 15px;
-		color: #8f8f94;
-		margin-top: 25px;
-	}
-
-	.ul>view {
-		line-height: 25px;
-	}
 </style>

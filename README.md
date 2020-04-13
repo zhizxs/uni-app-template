@@ -36,15 +36,21 @@ npm run build
 ## 文件说明
 
 
-
-## 特点
-* 兼容微信小程序和APP
-* 适用于强制登录和非强制登录应用场景
-* 使用vuex管理登录状态
-* 包含账户密码登录和第三方登录方式（微信、微博、QQ）
-
 ## 注意事项
 * 页面初始化完毕后马上跳转页面可能会失败，可以尝试延迟执行
+* pages.json不支持scss， 原生导航栏和tabbar的动态修改只能使用js api
+* App.vue 不编译页面，只做全局配置。仅支持 应用生命周期。不能写模板
+* globalData 全局变量机制 全端通用 
+	+ js中操作globalData的方式如下： getApp().globalData.text = 'test'
+	+ 在应用onLaunch时，getApp对象还未获取，暂时可以使用this.$scope.globalData获取globalData。
+	+ 如果需要把globalData的数据绑定到页面上，可在页面的onShow页面生命周期里进行变量重赋值。
+* 微信小程序只支持单文件上传，传多个文件需要反复调用本API
+* 小程序平台运行时，网络相关的 API 在使用前需要配置域名白名单
 
 
+## 问题
 
+1.头部颜色以及文字动态修改？
+2.回弹区域添加内容？
+3.使用webpack文件，配置所有的scss文件 注入指定的 a.scss文件？
+4.拦截器配置？路由？接口？
