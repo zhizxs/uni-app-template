@@ -30,14 +30,13 @@
 			"style": {
 				"navigationBarTitleText": "附近"
 			}
+		}, {
+			"path": "pages/show/show",
+			"style": {
+				"navigationBarTitleText": "直播间"
+			}
 		}
-	    ,{
-            "path" : "pages/show/show",
-            "style": {
-            	"navigationBarTitleText": "直播间"
-            }
-        }
-    ],
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#0faeff",
@@ -47,11 +46,11 @@
 			"text": "推荐",
 			"iconPath": "static/img/home.png",
 			"selectedIconPath": "static/img/homeHL.png"
-		},{
+		}, {
 			"pagePath": "pages/position/position",
 			"text": "附近",
-			"iconPath": "static/img/home.png",
-			"selectedIconPath": "static/img/homeHL.png"
+			"iconPath": "static/img/pos.png",
+			"selectedIconPath": "static/img/posHL.png"
 		}, {
 			"pagePath": "pages/user/user",
 			"text": "我的",

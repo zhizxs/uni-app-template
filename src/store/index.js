@@ -9,11 +9,11 @@ const store = new Vuex.Store({
 		 * 是否需要强制登录
 		 */
 		forcedLogin: false,
-		hasLogin: false,
 		userName: "",
 		hasLogin: false, // 是否登录
 		openid: null,
 		userInfo: null, // 用户的信息
+		provider: ''
 	},
 	mutations: {
 		login(state) {
@@ -22,15 +22,42 @@ const store = new Vuex.Store({
 		logout(state) {
 			state.hasLogin = false
 			state.openid = null
+			state.userInfo = null
+		},
+		setProvider(state, provider) {
+			state.provider = provider
 		},
 		setOpenid(state, openid) {
 			state.openid = openid
 		},
 		setUserInfo(state, userInfo) {
 			state.userInfo = userInfo
-		},
+		}
 	},
 	actions: {
+		getProvider({
+			commit,
+			state
+		}) {
+			return new Promise((res, req) => {
+				if (state.provider) {
+					res(state.provider)
+				} else {
+					uni.getProvider({
+						service: 'oauth',
+						success: function(info) {
+							const {errMsg , provider } = info
+							if(errMsg === 'getProvider:ok') {
+								commit('setProvider',provider[0])
+								res(provider[0])
+							}else {
+								req(errMsg)
+							}
+						}
+					})
+				}
+			})
+		},
 		userLogin({
 			commit,
 			state
@@ -73,12 +100,13 @@ const store = new Vuex.Store({
 						provider,
 						success(userInfo) {
 							commit('setUserInfo', userInfo)
+							console.log('setUserInfo', userInfo)
+							res(userInfo)
 						}
 					});
 				} else {
 					res(state.userInfo)
 				}
-
 			})
 
 		},

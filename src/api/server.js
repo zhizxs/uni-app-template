@@ -1,3 +1,6 @@
+import Host from "../config"
+
+console.log('Host',Host)
 /**
  * 这是一个请求方法
  * @param  {string}  method 请求方式
@@ -6,6 +9,7 @@
  * @return {Promise}        返回 Promise
  */
 function reqMethod(method, url, data) {
+	url = Host.baseUrl + url
   let headers = {};
   if (typeof(data) === 'string') {
     headers = {
@@ -23,14 +27,13 @@ function reqMethod(method, url, data) {
       data,
       header: headers || {},
       success(res) {
-        resolve(res);
+        resolve(res.data);
       },
       fail(err) {
         reject(err)
       },
       complete() {
         console.log('调用了');
-
       }
     });
   });
